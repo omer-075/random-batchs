@@ -20,6 +20,7 @@ echo %ESC%[38;2;255;255;0m          ██║     ██║╚██████
 echo %ESC%[38;2;200;200;0m          ╚═╝     ╚═╝ ╚═════╝ ╚═╝ ╚═════╝ 
                                                                  
 echo.
+call :banner
 echo              BY@omer_075 *bat*
 echo.
 echo [1] Spam CMD [Run as Admin]
